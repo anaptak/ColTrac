@@ -1,7 +1,15 @@
 import re
 import os
 import enum
-from app import db
+from . import db
+from flask_login import UserMixin
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    google_id = db.Column(db.String(256), unique=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    profile_pic = db.Column(db.String(256), nullable=True)
 
 class CategoryEnum(enum.Enum):
     OPTION_A = "colTypeA"
